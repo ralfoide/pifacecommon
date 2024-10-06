@@ -14,7 +14,12 @@ IODIR_BOTH = None
 # IN_EVENT_DIR_OFF = INPUT_DIRECTION_OFF = 1
 # IN_EVENT_DIR_BOTH = INPUT_DIRECTION_BOTH = None
 
-GPIO_INTERRUPT_PIN = 25
+# For older RPi OS w/ older Kernel
+# GPIO_INTERRUPT_PIN = 25
+# For newer RPi OS w/ Kernel 6.x, gpiochip0 starts at 512, thus the index for GPIO25 becomes 512+25=537.
+# Validate this using "gpioinfo | grep 25"
+GPIO_INTERRUPT_PIN = 512+25
+
 GPIO_INTERRUPT_DEVICE = "/sys/class/gpio/gpio%d" % GPIO_INTERRUPT_PIN
 GPIO_INTERRUPT_DEVICE_EDGE = '%s/edge' % GPIO_INTERRUPT_DEVICE
 GPIO_INTERRUPT_DEVICE_VALUE = '%s/value' % GPIO_INTERRUPT_DEVICE
